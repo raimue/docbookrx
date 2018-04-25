@@ -101,6 +101,11 @@ class DocbookVisitor
     @in_table = false
     @nested_formatting = []
     @last_added_was_special = false
+
+    # Options for MacPorts Guide
+    @idprefix = ''
+    @idseparator = '-'
+    @normalize_ids = false
   end
 
   ## Traversal methods
