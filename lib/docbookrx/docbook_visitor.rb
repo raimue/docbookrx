@@ -1262,6 +1262,10 @@ class DocbookVisitor
     id = @normalize_ids ? (normalize_id linkend) : linkend
     text = format_text node
     label = text.shift(1)[0]
+
+    # MacPorts: collapse whitespace inside references into a single space
+    label = label.gsub(/\s+/m, ' ')
+
     if label.empty?
       append_text %(<<#{id}>>)
     else
