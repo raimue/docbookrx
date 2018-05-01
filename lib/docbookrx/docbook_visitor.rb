@@ -433,18 +433,19 @@ class DocbookVisitor
     title = text_at_css node, '> title'
     append_line %(= #{title})
     authors = []
-    (node.css 'author').each do |author_node|
-      # FIXME need to detect DocBook 4.5 vs 5.0 to handle names properly
-      author = if (personname_node = (author_node.at_css 'personname'))
-        text personname_node
-      else
-        [(text_at_css author_node, 'firstname'), (text_at_css author_node, 'surname')].compact * ' '
-      end
-      if (email_node = (author_node.at_css 'email'))
-        author = %(#{author} <#{text email_node}>)
-      end
-      authors << author unless author.empty?
-    end
+    # MacPorts: drop authors
+    #(node.css 'author').each do |author_node|
+    #  # FIXME need to detect DocBook 4.5 vs 5.0 to handle names properly
+    #  author = if (personname_node = (author_node.at_css 'personname'))
+    #    text personname_node
+    #  else
+    #    [(text_at_css author_node, 'firstname'), (text_at_css author_node, 'surname')].compact * ' '
+    #  end
+    #  if (email_node = (author_node.at_css 'email'))
+    #    author = %(#{author} <#{text email_node}>)
+    #  end
+    #  authors << author unless author.empty?
+    #end
     append_line (authors * '; ') unless authors.empty?
     date_line = nil
     if (revnumber_node = node.at_css('revhistory revnumber', 'releaseinfo'))
