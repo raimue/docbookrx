@@ -1426,16 +1426,26 @@ class DocbookVisitor
 
   def process_literal node
     name = node.name
-    unless ANONYMOUS_LITERAL_NAMES.include? name
-      shortname = case name
-      when 'envar'
-        'var'
-      when 'application'
-        'app'
-      else
-        name.sub 'name', ''
-      end
-      append_text %([#{shortname}])
+    # MacPorts: named literals are overly verbose and unnecessary in most
+    # places. Backticks alone should be enough, unless we want to apply
+    # a specific style to any of these.
+    #unless ANONYMOUS_LITERAL_NAMES.include? name
+    #  shortname = case name
+    #  when 'envar'
+    #    'var'
+    #  when 'application'
+    #    'app'
+    #  else
+    #    name.sub 'name', ''
+    #  end
+    #  append_text %([#{shortname}])
+    #end
+    macports_named_literal_names = {
+        'command' => 'cmd',
+    }
+    if macports_named_literal_names.has_key? name
+        shortname = macports_named_literal_names[name]
+        append_text %([#{shortname}])
     end
   
     times = (adjacent_character node) ? 2 : 1;
