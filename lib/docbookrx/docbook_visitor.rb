@@ -1361,7 +1361,9 @@ class DocbookVisitor
     #else
     #  name
     #end
-    append_text %([#{role}]_#{node.text}_)
+    # MacPorts: output paths as <code> to match previous DocBook output
+    # append_text %([#{role}]_#{node.text}_)
+    append_text %([#{role}]`#{node.text}`)
     false
   end
 
