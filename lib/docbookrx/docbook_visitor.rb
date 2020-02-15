@@ -1451,7 +1451,9 @@ class DocbookVisitor
   
     times = (adjacent_character node) ? 2 : 1;
     literal_char = ('`' * times)
-    other_format_start = other_format_end = ''
+    # MacPorts: use AsciiDoctor >=1.5.0 syntax for literals by default
+    # https://github.com/asciidoctor/asciidoctor/issues/1045
+    other_format_start = other_format_end = '+'
 
     if @nested_formatting.length > 1 
       emphasis = false
